@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <property name = "LOGS" value = "/app/lmng/logs/sweeps"/>
+        <appender name="CONSOLE"
+              class="ch.qos.logback.core.ConsoleAppender">
+              <layout class="ch.qos.logback.classic.PatternLayout">
+                  <Pattern>
+                      %d{yyyy-MM-dd HH:mm:ss} [%thread%] %-5level %logger{36} - %msg%n
+                  </Pattern>
+              </layout>
+        </appender>
+
+        <appender name="RfAppender"
+                  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOGS}/lmng_sweeps_logger.log</file>
+            <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+            </encoder>
+            <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- rollover daily and when the file reached 10 MB -->
+                <filePattern>
+                    ${LOGS}/archived/lmng_sweeps_logger-%d{yyyy-MM-dd}.%i.log
+                </filePattern>
+            </rollingPolicy>
+        </appender>
+</configuration>
